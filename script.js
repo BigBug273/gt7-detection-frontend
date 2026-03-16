@@ -180,8 +180,19 @@ async function fetchStats(){
 
   try{
 
-    const res  = await fetch(`${API}/stats?videoId=${videoId}`);
-    const data = await res.json();
+    const res = await fetch(`${API}/stats?videoId=${videoId}`);
+
+    const text = await res.text();
+
+    let data;
+
+    try{
+      data = JSON.parse(text);
+    }
+    catch(e){
+      console.error("Server returned non-JSON:", text);
+      return;
+    }
 
     updateDashboard(data);
 
