@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GT7 Vision Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+    </svg>
+  </div>
+
+  <div class="header-title">
+    <h1>GT7 VISION DASHBOARD</h1>
+    <span class="subtitle">YOLO NEURAL NETWORK TELEMETRY</span>
+  </div>
+
+  <div class="system-status" id="systemStatus">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusLabel">SYSTEM STANDBY</span>
+  </div>
+</header>
+
+
+<main>
+
+  <!-- LEFT PANEL -->
+  <aside class="left-panel">
+
+    <div class="hud-card">
+      <div class="card-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        UPLINK CONTROLS
+      </div>
+
+      <label class="btn btn-primary full-width" id="uploadLabel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+
+        <span id="uploadBtnText">UPLOAD FEED</span>
+        <input type="file" id="fileInput" accept="video/*" hidden />
+      </label>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="analyzeBtn" disabled>
+          ANALYZE
+        </button>
+
+        <button class="btn btn-danger" id="stopBtn" disabled>
+          ABORT
+        </button>
+      </div>
+    </div>
+
+
+    <!-- CAMERA -->
+    <div class="hud-card camera-card">
+
+      <div class="card-header">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+          <circle cx="12" cy="13" r="3"/>
+        </svg>
+
+        CAMERA FEED
+      </div>
+
+      <div class="video-container">
+
+        <div class="video-overlay" id="videoOverlay">
+          <div class="crosshair">
+            <div class="cross-h"></div>
+            <div class="cross-v"></div>
+          </div>
+          <div class="no-signal">NO SIGNAL DETECTED</div>
+        </div>
+
+        <!-- 🔥 LIVE STREAM FRAME -->
+        <img id="videoFeed" />
+
+      </div>
+
+      <div class="video-meta" id="videoMeta"></div>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- RIGHT PANEL -->
+  <section class="right-panel">
+
+    <!-- PERFORMANCE -->
+    <div class="hud-card">
+
+      <div class="card-header">
+        PERFORMANCE ANALYTICS
+      </div>
+
+      <div class="metrics-grid">
+
+        <div class="metric-box">
+          <div class="metric-label">FPS</div>
+          <div class="metric-value">
+            <span id="fps">0</span>
+            <span class="metric-unit">HZ</span>
+          </div>
+        </div>
+
+        <div class="metric-box">
+          <div class="metric-label">CONFIDENCE</div>
+          <div class="metric-value">
+            <span id="avgConf">0.0</span>
+            <span class="metric-unit">%</span>
+          </div>
+        </div>
+
+        <div class="metric-box">
+          <div class="metric-label">FRAMES</div>
+          <div class="metric-value">
+            <span id="frames">0</span>
+          </div>
+        </div>
+
+        <div class="metric-box">
+          <div class="metric-label">DETECTIONS</div>
+          <div class="metric-value">
+            <span id="totalDetections">0</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="progress-bar-container">
+
+        <div class="progress-label">
+          <span>ANALYSIS PROGRESS</span>
+          <span id="progressPct">0%</span>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- CURRENTLY IN VIEW -->
+    <div class="hud-card">
+
+      <div class="card-header">
+        CURRENTLY IN VIEW
+      </div>
+
+      <div id="currentlyInView" class="in-view-list">
+        <div class="awaiting">
+          AWAITING CLASSIFICATION DATA
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- HISTORY -->
+    <div class="hud-card">
+
+      <div class="card-header">
+        DETECTION HISTORY
+      </div>
+
+      <div id="detectionHistory" class="detection-history">
+
+        <div class="awaiting">
+          NO DETECTION DATA YET
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
