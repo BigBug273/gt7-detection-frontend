@@ -45,7 +45,14 @@ fileInput.addEventListener("change", async (e) => {
     const fd = new FormData();
     fd.append("video", file);
 
-    const res  = await fetch(`${API}/upload`, { method: "POST", body: fd });
+    const res  = await fetch(`${API}/upload`, {
+      method: "POST",
+      body: fd,
+      headers:{
+        "ngrok-skip-browser-warning":"true"
+      }
+    });
+
     const data = await res.json();
 
     if (!data.success) throw new Error(data.detail || "Upload failed");
@@ -97,7 +104,11 @@ analyzeBtn.addEventListener("click", async () => {
 
   try {
 
-    await fetch(`${API}/process?videoId=${videoId}`);
+    await fetch(`${API}/process?videoId=${videoId}`,{
+      headers:{
+        "ngrok-skip-browser-warning":"true"
+      }
+    });
 
     videoFeed.src = "";
     videoFeed.src = `${API}/stream?videoId=${videoId}`;
@@ -128,7 +139,8 @@ stopBtn.addEventListener("click", async () => {
     await fetch(`${API}/stop`,{
       method:"POST",
       headers:{
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "ngrok-skip-browser-warning":"true"
       },
       body:JSON.stringify({ videoId })
     });
