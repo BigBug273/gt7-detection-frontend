@@ -180,7 +180,12 @@ async function fetchStats(){
 
   try{
 
-    const res = await fetch(`${API}/stats?videoId=${videoId}`);
+    const res = await fetch(`${API}/stats?videoId=${videoId}`,{
+      headers:{
+        "Accept":"application/json",
+        "ngrok-skip-browser-warning":"true"
+      }
+    });    
 
     const text = await res.text();
 
