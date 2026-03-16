@@ -158,7 +158,7 @@ function startPolling(){
 
   stopPolling();
 
-  pollInterval = setInterval(fetchStats,800);
+  pollInterval = setInterval(fetchStats,2000);
 
   fetchStats();
 
