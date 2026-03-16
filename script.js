@@ -1,4 +1,5 @@
 const API = "https://benthonic-presumptuously-octavio.ngrok-free.dev";
+const NGROK = "ngrok-skip-browser-warning=true";
 
 let videoId = null;
 let pollInterval = null;
@@ -45,7 +46,7 @@ fileInput.addEventListener("change", async (e) => {
     const fd = new FormData();
     fd.append("video", file);
 
-    const res  = await fetch(`${API}/upload`, {
+   const res  = await fetch(`${API}/upload?${NGROK}`, {
       method: "POST",
       body: fd,
       headers:{
@@ -104,7 +105,7 @@ analyzeBtn.addEventListener("click", async () => {
 
   try {
 
-    await fetch(`${API}/process?videoId=${videoId}`,{
+    await fetch(`${API}/process?videoId=${videoId}&${NGROK}`,{
       headers:{
         "ngrok-skip-browser-warning":"true"
       }
@@ -136,7 +137,7 @@ stopBtn.addEventListener("click", async () => {
 
   try{
 
-    await fetch(`${API}/stop`,{
+    await fetch(`${API}/stop?${NGROK}`,{
       method:"POST",
       headers:{
         "Content-Type":"application/json",
@@ -192,7 +193,7 @@ async function fetchStats(){
 
   try{
 
-    const res = await fetch(`${API}/stats?videoId=${videoId}`,{
+    const res = await fetch(`${API}/stats?videoId=${videoId}&${NGROK}`,{
       headers:{
         "Accept":"application/json",
         "ngrok-skip-browser-warning":"true"
